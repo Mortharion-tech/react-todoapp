@@ -1,6 +1,6 @@
 import { useReducer } from 'react';
 import AddTodo from './AddTodo';
-import TasksList from './TasksList';
+import TodoList from './TodoList';
 
 function tasksReducer(tasks, action) {
   switch(action.type) {
@@ -35,7 +35,7 @@ export default function App() {
     <>
       <h1>TODO App</h1>
       <AddTodo dispatch={dispatch} />
-      <TasksList tasks={tasks} dispatch={dispatch} />
+      <TodoList tasks={tasks} dispatch={dispatch} />
     </>
   );
 }
