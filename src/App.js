@@ -1,9 +1,10 @@
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
 import AddTodo from './AddTodo';
 import TodoList from './TodoList';
 
 function tasksReducer(tasks, action) {
   switch(action.type) {
+
     case 'ADD_TODO':
       return [
         ...tasks,
@@ -13,6 +14,7 @@ function tasksReducer(tasks, action) {
           done: false,
         },
       ];
+
     case 'UPDATE_TODO':
       return tasks.map((t) => {
         if (t.id === action.task.id) {
@@ -21,8 +23,13 @@ function tasksReducer(tasks, action) {
           return t;
         }
       });
+
     case 'DELETE_TODO':
       return tasks.filter((t) => t.id !== action.taskId);
+
+    case 'REMOVE_ALL':
+      return [];
+    
     default:
       return tasks;
   }
