@@ -1,4 +1,4 @@
-export default function TasksList({ tasks, dispatch }) {
+export default function TodoList({ tasks, dispatch }) {
     return (
         <>
         {tasks.map(task =>
