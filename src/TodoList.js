@@ -1,9 +1,9 @@
 import TodoItem from './TodoItem';
 
-export default function TodoList({ tasks, dispatch }) {
+export default function TodoList({ tasks = [], dispatch }) {
     return (
         <ul>
-            {tasks.map(task =>
+            {tasks?.map(task =>
                 <TodoItem
                     key={task.id}
                     task={task}
