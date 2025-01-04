@@ -2,6 +2,15 @@ import { useState } from 'react';
 
 export default function TodoItem({ task, dispatch }) {
     const [isEditing, setIsEditing] = useState(false);
+    const [editText, setEditText] = useState(task.text);
+
+    const handleSave = () => {
+        setIsEditing(false);
+        dispatch({
+            type: 'UPDATE_TODO',
+            task: {...task, text: editText}
+        });
+    };
 
     return (
         <li>
@@ -18,21 +27,26 @@ export default function TodoItem({ task, dispatch }) {
             {isEditing ? (
                 <input
                     type="text"
-                    defaultValue={task.text}
+                    value={editText}
+                    onChange={(e) => setEditText(e.target.value)}
                     onKeyDown={(e) => {
                         if (e.key === 'Enter') {
-                            setIsEditing(false);
-                            dispatch({
-                                type: 'UPDATE_TODO',
-                                task: {...task, text: e.target.value}
-                            });
+                            handleSave();
                         }
                     }}
                 />
             ) : (
                 task.text
             )}
-            <button onClick={() => setIsEditing(true)}>Edit</button>
+            <button onClick={() => {
+                if (isEditing) {
+                    handleSave();
+                } else {
+                    setIsEditing(true);
+                }
+            }}>
+                {isEditing ? 'Save' : 'Edit'}
+            </button>
             <button 
                 onClick={() => 
                     dispatch({
