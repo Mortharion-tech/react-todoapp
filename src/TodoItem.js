@@ -1,4 +1,8 @@
+import { useState } from 'react';
+
 export default function TodoItem({ task, dispatch }) {
+    const [isEditing, setIsEditing] = useState(false);
+
     return (
         <li>
             <input
@@ -11,7 +15,24 @@ export default function TodoItem({ task, dispatch }) {
                     })
                 }
             />
-            {task.text}
+            {isEditing ? (
+                <input
+                    type="text"
+                    defaultValue={task.text}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            setIsEditing(false);
+                            dispatch({
+                                type: 'UPDATE_TODO',
+                                task: {...task, text: e.target.value}
+                            });
+                        }
+                    }}
+                />
+            ) : (
+                task.text
+            )}
+            <button onClick={() => setIsEditing(true)}>Edit</button>
             <button 
                 onClick={() => 
                     dispatch({
