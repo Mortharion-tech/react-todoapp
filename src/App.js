@@ -4,7 +4,6 @@ import TodoList from './TodoList';
 
 function tasksReducer(tasks, action) {
   switch(action.type) {
-
     case 'ADD_TODO':
       return [
         ...tasks,
@@ -43,6 +42,11 @@ export default function App() {
       <h1>TODO App</h1>
       <AddTodo dispatch={dispatch} />
       <TodoList tasks={tasks} dispatch={dispatch} />
+      {tasks.length > 0 && (
+        <button onClick={() => dispatch({ type: 'REMOVE_ALL' })}>
+          Remove All
+        </button>
+      )}
     </>
   );
 }
@@ -52,4 +56,4 @@ const initialTasks = [
   {id: 0, text: 'Visit Kafka Museum', done: true},
   {id: 1, text: 'Watch a puppet show', done: false},
   {id: 2, text: 'Lennon Wall pic', done: false},
-]
+];
